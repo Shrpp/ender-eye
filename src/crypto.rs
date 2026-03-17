@@ -55,9 +55,9 @@ pub fn decrypt(ciphertext: &[u8], password: &str, salt: &[u8], nonce: &[u8]) -> 
 
     let plaintext_bytes = cipher
         .decrypt(Nonce::from_slice(&nonce), ciphertext)
-        .map_err(|_| ValidationErrors::NonAllowedCharacters)?;
+        .map_err(|_| ValidationErrors::PlainTextDecryptationFailed)?;
 
-    String::from_utf8(plaintext_bytes).map_err(|_| ValidationErrors::NonAllowedCharacters)
+    String::from_utf8(plaintext_bytes).map_err(|_| ValidationErrors::StringConversionFailed)
 }
 
 #[cfg(test)]

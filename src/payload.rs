@@ -18,15 +18,15 @@ pub fn decode_payload(payload: &str) -> Result<(Vec<u8>, [u8; 16], [u8; 12])> {
 
     let salt: [u8; 16] = bytes[0..16]
         .try_into()
-        .map_err(|_| ValidationErrors::Base64DecodingFailed)?;
+        .map_err(|_| ValidationErrors::Base64SaltDecodingFailed)?;
 
     let nonce: [u8; 12] = bytes[16..28]
         .try_into()
-        .map_err(|_| ValidationErrors::Base64DecodingFailed)?;
+        .map_err(|_| ValidationErrors::Base64NonceDecodingFailed)?;
 
     let ciphertext: Vec<u8> = bytes[28..]
         .try_into()
-        .map_err(|_| ValidationErrors::Base64DecodingFailed)?;
+        .map_err(|_| ValidationErrors::Base64CiphertextDecodingFailed)?;
 
     Ok((ciphertext, salt, nonce))
 }

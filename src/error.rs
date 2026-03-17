@@ -16,6 +16,21 @@ pub enum ValidationErrors {
 
     #[error("Decode Failed")]
     Base64DecodingFailed,
+
+    #[error("Salt decode failed")]
+    Base64SaltDecodingFailed,
+
+    #[error("Nonce decode failed")]
+    Base64NonceDecodingFailed,
+
+    #[error("Ciphertext decode failed")]
+    Base64CiphertextDecodingFailed,
+
+    #[error("Plain text decrypt failed")]
+    PlainTextDecryptationFailed,
+
+    #[error("String conversion failed")]
+    StringConversionFailed,
 }
 
 impl From<argon2::Error> for ValidationErrors {

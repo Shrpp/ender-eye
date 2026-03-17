@@ -46,18 +46,24 @@ pub fn decode(text: &str) -> Result<String, ValidationErrors> {
         return Err(ValidationErrors::EmptyCharacters);
     }
 
-    Ok(text
-        .chars()
-        .map(|s| {
-            match SGA_TABLE
-                .iter()
-                .find(|(_, symbol)| *symbol == s.to_string().as_str())
-            {
-                Some((latin, _)) => latin.to_string(),
-                None => s.to_string(),
+    let mut result = String::new();
+    for c in text.chars() {
+        match SGA_TABLE
+            .iter()
+            .find(|(_, symbol)| *symbol == c.to_string().as_str())
+        {
+            Some((latin, _)) => result.push_str(&latin.to_string()),
+            None => {
+                if c.is_ascii_alphanumeric() || c.is_ascii_punctuation() || c.is_ascii_whitespace()
+                {
+                    result.push(c);
+                } else {
+                    return Err(ValidationErrors::NonAllowedCharacters);
+                }
             }
-        })
-        .collect::<String>())
+        }
+    }
+    Ok(result)
 }
 
 #[cfg(test)]
