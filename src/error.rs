@@ -31,6 +31,12 @@ pub enum ValidationErrors {
 
     #[error("String conversion failed")]
     StringConversionFailed,
+
+    #[error("Password cannot be empty")]
+    EmptyPassword,
+
+    #[error("Payload too short to be valid")]
+    PayloadTooShort,
 }
 
 impl From<argon2::Error> for ValidationErrors {

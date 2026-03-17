@@ -16,6 +16,11 @@ pub fn decode_payload(payload: &str) -> Result<(Vec<u8>, [u8; 16], [u8; 12])> {
         .decode(payload)
         .map_err(|_| ValidationErrors::Base64DecodingFailed)?;
 
+    // salt (16) + nonce (12) + at least 1 byte of ciphertext
+    if bytes.len() < 29 {
+        return Err(ValidationErrors::PayloadTooShort);
+    }
+
     let salt: [u8; 16] = bytes[0..16]
         .try_into()
         .map_err(|_| ValidationErrors::Base64SaltDecodingFailed)?;
