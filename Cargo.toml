@@ -1,7 +1,13 @@
 [package]
 name = "ender-eye"
-version = "0.1.0"
-edition = "2024"
+version = "1.0.0"
+edition = "2026"
+description = "Encrypt and decrypt messages using SGA encoding + AES-256-GCM, inspired by the Standard Galactic Alphabet from Minecraft."
+license = "MIT"
+repository = "https://github.com/shrpp/ender-eye"
+keywords = ["encryption", "aes-gcm", "argon2", "sga", "minecraft"]
+categories = ["cryptography"]
+readme = "README.md"
 
 [dependencies]
 thiserror = "1"
