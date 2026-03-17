@@ -2,40 +2,40 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum ValidationErrors {
-    #[error("Empty characters")]
+    #[error("message cannot be empty")]
     EmptyCharacters,
 
-    #[error("Non-allowed characters detected")]
+    #[error("message contains characters that are not supported — only lowercase letters and spaces are allowed")]
     NonAllowedCharacters,
 
-    #[error("Key derivation failed: {0}")]
+    #[error("key derivation failed: {0}")]
     KeyDerivationFailed(String),
 
-    #[error("Encryption failed")]
+    #[error("encryption failed — could not produce a valid ciphertext")]
     EncryptionFailed,
 
-    #[error("Decode Failed")]
+    #[error("payload is not valid Base64")]
     Base64DecodingFailed,
 
-    #[error("Salt decode failed")]
+    #[error("could not extract salt from payload — data may be corrupted")]
     Base64SaltDecodingFailed,
 
-    #[error("Nonce decode failed")]
+    #[error("could not extract nonce from payload — data may be corrupted")]
     Base64NonceDecodingFailed,
 
-    #[error("Ciphertext decode failed")]
+    #[error("could not extract ciphertext from payload — data may be corrupted")]
     Base64CiphertextDecodingFailed,
 
-    #[error("Plain text decrypt failed")]
+    #[error("decryption failed — the password is incorrect or the payload has been tampered with")]
     PlainTextDecryptationFailed,
 
-    #[error("String conversion failed")]
+    #[error("decrypted bytes are not valid UTF-8")]
     StringConversionFailed,
 
-    #[error("Password cannot be empty")]
+    #[error("password cannot be empty")]
     EmptyPassword,
 
-    #[error("Payload too short to be valid")]
+    #[error("payload is too short to be valid — expected at least 29 bytes")]
     PayloadTooShort,
 }
 
