@@ -7,7 +7,7 @@
 [![Crates.io](https://img.shields.io/crates/v/ender-eye)](https://crates.io/crates/ender-eye)
 [![docs.rs](https://img.shields.io/docsrs/ender-eye)](https://docs.rs/ender-eye)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Rust edition](https://img.shields.io/badge/rust%20edition-2024-orange.svg)](https://doc.rust-lang.org/edition-guide/)
+[![Rust edition](https://img.shields.io/badge/rust%20edition-2021-orange.svg)](https://doc.rust-lang.org/edition-guide/)
 
 A Rust library for encrypting and decrypting messages through a transformation pipeline using the Standard Galactic Alphabet from Minecraft : SGA encoding → AES-256-GCM → Base64. Give it a message and a password, and you get back an opaque payload that no one can read without that password.
 
