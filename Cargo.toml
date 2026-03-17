@@ -1,0 +1,11 @@
+[package]
+name = "ender-eye"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+thiserror = "1"
+argon2 = "0.5"
+rand = { version = "0.8", features = ["getrandom"] }
+zeroize = { version = "1.7", features = ["derive"] }
+aes-gcm = { version = "0.10", features = ["aes", "std"] }
