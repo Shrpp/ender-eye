@@ -9,3 +9,4 @@ argon2 = "0.5"
 rand = { version = "0.8", features = ["getrandom"] }
 zeroize = { version = "1.7", features = ["derive"] }
 aes-gcm = { version = "0.10", features = ["aes", "std"] }
+base64 = "0.22"
