@@ -44,6 +44,22 @@ pub fn encrypt(message: &str, password: &str) -> Result<(Vec<u8>, [u8; 16], [u8;
     Ok((ciphertext, salt, nonce))
 }
 
+pub fn decrypt(ciphertext: &[u8], password: &str, salt: &[u8], nonce: &[u8]) -> Result<String> {
+    if password.is_empty() {
+        return Err(ValidationErrors::EmptyCharacters);
+    }
+
+    let key = derive_key(password, salt)?;
+
+    let cipher = Aes256Gcm::new(Key::<Aes256Gcm>::from_slice(&*key));
+
+    let plaintext_bytes = cipher
+        .decrypt(Nonce::from_slice(&nonce), ciphertext)
+        .map_err(|_| ValidationErrors::NonAllowedCharacters)?;
+
+    String::from_utf8(plaintext_bytes).map_err(|_| ValidationErrors::NonAllowedCharacters)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -67,5 +83,16 @@ mod tests {
         let second_result = encrypt("cat", "john_doe").unwrap();
 
         assert_ne!(first_result, second_result);
+    }
+
+    #[test]
+    fn roundtrip_encrypt_decrypt() {
+        let message = "Hello World";
+        let password = "password123";
+
+        let (ciphertext, salt, nonce) = encrypt(message, password).unwrap();
+        let result = decrypt(&ciphertext, password, &salt, &nonce).unwrap();
+
+        assert_eq!(result, message);
     }
 }
